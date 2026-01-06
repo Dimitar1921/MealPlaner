@@ -24,7 +24,7 @@ import { loadMealPlanFromDatabase } from '../services/mealPlan';
 
 const defaultTheme = createTheme();
 
-// Meal-plan loading is centralized in `ui/src/services/mealPlan.js`
+
 
 export default function SignIn() {
 
@@ -39,14 +39,14 @@ export default function SignIn() {
         const email = data.get('email');
         const password = data.get('password');
 
-        // Basic email validation
+       
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
             setError("Please enter a valid email address.");
             return;
         }
 
-        // Password is required for login
+        
         if (!password || password.length === 0) {
             setError("Password is required.");
             return;
@@ -59,14 +59,14 @@ export default function SignIn() {
             const response = await authAPI.login({ email, password });
             
             if (response.success) {
-                // Store token and user data
+                
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 
-                // Update Redux store
+                
                 dispatch(setUser(response.data.user));
                 
-                // Check if user has saved meals and load them
+                
                 const hasMealPlan = await loadMealPlanFromDatabase(dispatch);
                 localStorage.setItem('hasMealPlan', hasMealPlan ? 'true' : 'false');
                 
@@ -98,14 +98,14 @@ export default function SignIn() {
             });
 
             if (response.success) {
-                // Store token and user data
+                
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 
-                // Update Redux store
+                
                 dispatch(setUser(response.data.user));
                 
-                // Check if user has saved meals and load them
+                
                 const hasMealPlan = await loadMealPlanFromDatabase(dispatch);
                 localStorage.setItem('hasMealPlan', hasMealPlan ? 'true' : 'false');
                 
@@ -189,11 +189,7 @@ export default function SignIn() {
                             />
                         </Box>
                         <Grid container>
-                            <Grid item xs>
-                                <Link component={RouterLink} to="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
+                            
                             <Grid item>
                                 <Link component={RouterLink} to="/signup" variant="body2">
                                     {"Don't have an account? Sign Up"}

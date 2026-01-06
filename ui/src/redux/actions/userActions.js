@@ -5,7 +5,7 @@ export const SET_CALORIE_GOAL = "SET_CALORIE_GOAL";
 export const SET_MEAL_DATA = "SET_MEAL_DATA";
 export const LOGOUT = "LOGOUT";
 
-// Действие за задаване на начален потребител
+
 export const setUser = (user) => {
   return {
     type: SET_USER,
@@ -13,7 +13,7 @@ export const setUser = (user) => {
   };
 };
 
-// Действие за актуализиране на потребителските данни
+
 export const updateUserData = (userData) => {
   return {
     type: UPDATE_USER_DATA,
@@ -32,7 +32,7 @@ export const setMealData = (mealData) => ({
   payload: mealData,
 });
 
-// Действие за logout
+
 export const logout = () => {
   return {
     type: LOGOUT,

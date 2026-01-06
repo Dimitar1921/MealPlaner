@@ -5,7 +5,7 @@ const User = require('../../../models/User');
 const { validateUserUpdate } = require('../../../middleware/validation');
 const { authenticateToken } = require('../../../middleware/auth');
 
-// GET /api/v1/users - Get all users (admin only, or for testing)
+
 router.get('/', async (req, res) => {
   try {
     const users = await User.findAll({
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /api/v1/users/:id - Get user by ID
+
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
@@ -51,10 +51,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// PUT /api/v1/users/:id - Update user
+
 router.put('/:id', authenticateToken, validateUserUpdate, async (req, res) => {
   try {
-    // Check if user is updating their own profile
+   
     if (parseInt(req.params.id) !== req.userId) {
       return res.status(403).json({
         success: false,
@@ -95,10 +95,10 @@ router.put('/:id', authenticateToken, validateUserUpdate, async (req, res) => {
   }
 });
 
-// DELETE /api/v1/users/:id - Delete user
+
 router.delete('/:id', authenticateToken, async (req, res) => {
   try {
-    // Check if user is deleting their own profile
+   
     if (parseInt(req.params.id) !== req.userId) {
       return res.status(403).json({
         success: false,

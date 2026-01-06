@@ -3,7 +3,7 @@ const path = require('path');
 
 const dbPath = path.join(__dirname, 'database', 'nutrition.db');
 
-// Get SQL query from command line arguments
+
 const query = process.argv.slice(2).join(' ');
 
 if (!query) {
@@ -12,7 +12,7 @@ if (!query) {
   process.exit(1);
 }
 
-// Open database connection
+
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
@@ -20,7 +20,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
-// Execute query
+
 db.all(query, [], (err, rows) => {
   if (err) {
     console.error('Error executing query:', err.message);
@@ -28,7 +28,7 @@ db.all(query, [], (err, rows) => {
     process.exit(1);
   }
 
-  // Display results
+  
   if (rows.length === 0) {
     console.log('No results found.');
   } else {

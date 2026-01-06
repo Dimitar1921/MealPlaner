@@ -16,17 +16,17 @@ export default function Header() {
   const user = useSelector((state) => state.user.user);
 
   const handleLogout = () => {
-    // Clear localStorage
+   
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     
-    // Clear Redux store
+    
     dispatch(logout());
     
-    // Navigate to login
+    
     navigate('/');
   };
-
+console.log(user)
   return (
     <AppBar position="static" sx={{ mb: 3 }}>
       <Toolbar>

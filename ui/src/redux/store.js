@@ -20,12 +20,11 @@ const errorHandlingMiddleware = store => next => action => {
     return next(action);
   } catch (e) {
     console.error('Caught an exception!', e);
-    throw e; // re-throw the error
+    throw e; 
   }
 };
 
-// const logger = createLogger({
-// });
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

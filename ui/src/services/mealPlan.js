@@ -1,14 +1,7 @@
 import { mealAPI } from './api';
 import { setMealData, setCalorieGoal } from '../redux/actions/userActions';
 
-/**
- * Loads the authenticated user's saved meals from the backend and hydrates Redux
- * into the shape expected by `Review` (Spoonacular-like weekly format).
- *
- * Returns:
- * - true if a non-empty plan (at least one meal) was loaded
- * - false otherwise
- */
+
 export async function loadMealPlanFromDatabase(dispatch) {
   try {
     const response = await mealAPI.getAll(); // { success, data: Meal[] }
@@ -69,7 +62,7 @@ export async function loadMealPlanFromDatabase(dispatch) {
     );
     if (!hasAnyMeals) return false;
 
-    // Normalize nutrients for display
+    
     Object.keys(mealsByDay).forEach((day) => {
       mealsByDay[day].nutrients.calories = Math.round(mealsByDay[day].nutrients.calories);
       mealsByDay[day].nutrients.protein = parseFloat(mealsByDay[day].nutrients.protein.toFixed(2));
@@ -89,7 +82,7 @@ export async function loadMealPlanFromDatabase(dispatch) {
 
     return true;
   } catch (e) {
-    // Silent fail: user can continue normal flow
+    
     return false;
   }
 }

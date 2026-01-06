@@ -1,6 +1,6 @@
 const { body, validationResult } = require('express-validator');
 
-// Validation error handler
+
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -13,7 +13,7 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-// User registration validation
+
 const validateUserRegistration = [
   body('email')
     .isEmail()
@@ -46,7 +46,7 @@ const validateUserRegistration = [
   handleValidationErrors
 ];
 
-// User login validation
+
 const validateUserLogin = [
   body('email')
     .isEmail()
@@ -58,7 +58,7 @@ const validateUserLogin = [
   handleValidationErrors
 ];
 
-// User update validation
+
 const validateUserUpdate = [
   body('email')
     .optional()
@@ -89,7 +89,7 @@ const validateUserUpdate = [
   handleValidationErrors
 ];
 
-// Meal validation
+
 const validateMeal = [
   body('day')
     .isIn(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])

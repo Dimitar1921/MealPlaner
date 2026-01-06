@@ -50,20 +50,19 @@ body {
   color: #61dafb;
 }
 
-/* Button Styles */
+
 button {
   width: 100%;
   padding: 0.5rem 1rem;
-  background-color: #2c5891; /* Updated color */
+  background-color: #2c5891; 
   color: #f3f3f3;
   border: none;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth transition */
+  transition: background-color 0.3s ease; 
 }
 
 button:hover {
-  background-color: #266ac3; /* Updated hover color */
+  background-color: #266ac3; 
 }
-/*  */

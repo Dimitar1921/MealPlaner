@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1';
 
-// Create axios instance with default config
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -10,7 +10,7 @@ const api = axios.create({
   },
 });
 
-// Add token to requests if available
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -24,12 +24,12 @@ api.interceptors.request.use(
   }
 );
 
-// Handle response errors
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid
+      
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/';
@@ -38,7 +38,7 @@ api.interceptors.response.use(
   }
 );
 
-// Auth API
+
 export const authAPI = {
   register: async (userData) => {
     const response = await api.post('/auth/register', userData);
@@ -56,7 +56,7 @@ export const authAPI = {
   },
 };
 
-// User API
+
 export const userAPI = {
   getById: async (id) => {
     const response = await api.get(`/users/${id}`);
@@ -74,7 +74,7 @@ export const userAPI = {
   },
 };
 
-// Meal API
+
 export const mealAPI = {
   getAll: async () => {
     const response = await api.get('/meals');

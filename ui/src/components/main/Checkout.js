@@ -38,8 +38,7 @@ export default function Checkout() {
   const selectedCalorieGoal = useSelector((state) => state.user.selectedCalorieGoal);
   const user = useSelector((state) => state.user.user);
   
-  // Redirect to step 3 ONLY if the logged-in user has a saved meal plan loaded from DB.
-  // That means: we have a week object and at least one day has meals.
+  // Redirect to step 3 
   const hasMealPlanFlag =
     typeof window !== 'undefined' && localStorage.getItem('hasMealPlan') === 'true';
 
@@ -51,11 +50,11 @@ export default function Checkout() {
       Object.values(mealData.week).some((d) => Array.isArray(d?.meals) && d.meals.length > 0)
   );
   
-  // If user has saved meal plan with actual data, start at step 2 (Review)
+  // If user has saved meal plan with actual data
   const initialStep = hasMealPlan ? 2 : 0;
   const [activeStep, setActiveStep] = React.useState(initialStep);
   
-  // Update step if meal data is loaded after component mount
+  
   React.useEffect(() => {
     const hasMealPlanNow = Boolean(
       user?.id &&
@@ -81,17 +80,6 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
-  // const handleDownload = () => {
-  //   if (mealData) {
-  //     const fileName = "meal_plan.json";
-  //     const fileContent = JSON.stringify(mealData, null, 2);
-  //     const blob = new Blob([fileContent], { type: "application/json" });
-  //     saveAs(blob, fileName);
-  //   } else {
-  //     alert("No meal plan data to download.");
-  //   }
-  // };
-
   const handleDownloadPDF = () => {
     if (mealData) {
       const doc = new jsPDF();
@@ -100,17 +88,17 @@ export default function Checkout() {
       const margin = 14;
       let yPosition = 20;
 
-      // Заглавие на документа
+     
       doc.setFont("Helvetica", "bold");
       doc.setFontSize(18);
       doc.setTextColor(25, 118, 210);
       doc.text("Weekly Meal Plan", pageWidth / 2, yPosition, { align: "center" });
       yPosition += 15;
 
-      // За всяка седмица (ден) - API връща директно {monday: {...}, tuesday: {...}}
+    
       const weekData = mealData.week || mealData;
       
-      // Подредба на дните по ред
+     
       const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
       const sortedDays = Object.keys(weekData).sort((a, b) => {
         return dayOrder.indexOf(a.toLowerCase()) - dayOrder.indexOf(b.toLowerCase());
@@ -119,20 +107,20 @@ export default function Checkout() {
       sortedDays.forEach((day, index) => {
         const data = weekData[day];
         
-        // Проверка за нова страница
+       
         if (yPosition > pageHeight - 80) {
           doc.addPage();
           yPosition = 20;
         }
 
-        // Заглавие на деня
+       
         doc.setFontSize(14);
         doc.setFont("Helvetica", "bold");
         doc.setTextColor(40, 40, 40);
         doc.text(day.charAt(0).toUpperCase() + day.slice(1), margin, yPosition);
         yPosition += 8;
 
-        // Таблица за храненията
+       
         const mealRows = data.meals.map((meal) => [
           meal.title,
           `${meal.readyInMinutes} min`,
@@ -163,7 +151,7 @@ export default function Checkout() {
 
         yPosition = doc.lastAutoTable.finalY + 10;
 
-        // Добавяне на нутриенти
+       
         doc.setFontSize(11);
         doc.setFont("Helvetica", "bold");
         doc.setTextColor(40, 40, 40);
@@ -182,7 +170,7 @@ export default function Checkout() {
         yPosition += 12;
       });
 
-      // Запазване на PDF файла
+      
       doc.save("meal_plan.pdf");
     } else {
       alert("No meal plan data to download.");

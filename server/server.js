@@ -11,17 +11,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Import routes
+
 const userRoutes = require('./routes/api/v1/users');
 const authRoutes = require('./routes/api/v1/auth');
 const mealRoutes = require('./routes/api/v1/meals');
 
-// API Routes
+
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/meals', mealRoutes);
 
-// Health check endpoint
+
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
@@ -36,7 +36,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
+
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -44,7 +44,7 @@ app.use((req, res) => {
   });
 });
 
-// Initialize database and start server
+
 sequelize.sync({ force: false })
   .then(() => {
     console.log('Database connected successfully');

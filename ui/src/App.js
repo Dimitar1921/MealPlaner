@@ -12,10 +12,10 @@ import store from './redux/store';
 import { setUser } from './redux/actions/userActions';
 import { loadMealPlanFromDatabase } from './services/mealPlan';
 
-// Replace with your Google OAuth Client ID from Google Cloud Console
+
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID_HERE';
 
-// Protected Route wrapper
+
 const ProtectedRoute = ({ children }) => {
   const user = useSelector((state) => state.user.user);
   const storedUserRaw = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
@@ -43,7 +43,7 @@ const ProtectedRoute = ({ children }) => {
   );
 };
 
-// Public Route wrapper (redirects to checkout if already logged in)
+
 const PublicRoute = ({ children }) => {
   const user = useSelector((state) => state.user.user);
   const storedUserRaw = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
@@ -82,12 +82,12 @@ function AuthBootstrap() {
       const parsedUser = JSON.parse(userRaw);
       if (!parsedUser) return;
       dispatch(setUser(parsedUser));
-      // Load saved plan (if any) to enable direct jump to step 3.
+      
       loadMealPlanFromDatabase(dispatch).then((hasPlan) => {
         localStorage.setItem('hasMealPlan', hasPlan ? 'true' : 'false');
       });
     } catch {
-      // If user in storage is invalid, ignore.
+      
     }
   }, [dispatch, user]);
 

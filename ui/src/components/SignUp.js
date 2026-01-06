@@ -37,7 +37,7 @@ export default function SignUp() {
         const firstName = data.get('firstName');
         const lastName = data.get('lastName');
 
-        // Basic validation
+        
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
             setError("Please enter a valid email address.");
@@ -61,8 +61,8 @@ export default function SignUp() {
             return;
         }
 
-        // Generate username from email or first name
-        const username = email.split('@')[0] + '_' + Date.now().toString().slice(-6);
+        
+        const username = email.split('@')[0]; 
 
         setError("");
         setLoading(true);
@@ -77,17 +77,17 @@ export default function SignUp() {
             });
 
             if (response.success) {
-                // Store token and user data
+                
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 
-                // Update Redux store
+                
                 dispatch(setUser(response.data.user));
                 
-                // Check if user has saved meals and load them (unlikely for new user, but just in case)
+                
                 const hasMealPlan = await loadMealPlanFromDatabase(dispatch);
                 
-                // Store flag in localStorage to indicate if user has meal plan
+                
                 localStorage.setItem('hasMealPlan', hasMealPlan ? 'true' : 'false');
                 
                 navigate('/checkout');

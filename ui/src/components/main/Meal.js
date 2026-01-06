@@ -12,13 +12,13 @@ export default function Meal({ meal }) {
       // Otherwise construct URL from filename
       return `https://spoonacular.com/recipeImages/${meal.image}`;
     }
-    // Return null if no image - we'll handle it in the render
+    
     return null;
   };
 
   const imageUrl = getImageUrl();
 
-  // Define styles here
+  
   const styles = {
     meal: {
       backgroundColor: "#f8f8f8",
